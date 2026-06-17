@@ -155,20 +155,6 @@ export default function StudentDashboardView({ currentUser, onStartQuiz, onRevie
             </p>
           </div>
 
-          <div className="flex gap-4 items-center shrink-0">
-            {/* StudiFocus Promo Button */}
-            <a
-              href="https://studifocus.vercel.app"
-              target="_blank"
-              rel="noopener noreferrer"
-              id="studifocus-promo-btn"
-              className="px-5 py-3 bg-[#1e293b]/80 hover:bg-slate-800 text-white border border-slate-700 rounded-xl flex items-center gap-2 transition-all duration-150 cursor-pointer text-sm font-semibold shadow-inner"
-            >
-              <Layers className="w-4 h-4 text-blue-400" />
-              <span>Launch StudiFocus</span>
-              <ExternalLink className="w-3.5 h-3.5 opacity-60" />
-            </a>
-          </div>
         </div>
       </div>
 

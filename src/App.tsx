@@ -161,7 +161,7 @@ export default function App() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex justify-between items-center">
           <div className="flex items-center gap-4">
             <div className="flex items-center gap-3 cursor-pointer" onClick={() => { if (quizStateIntro()) setActiveTestId(null); }}>
-              <div className="w-8 h-8 bg-blue-600 rounded-lg flex items-center justify-center font-bold text-white font-display">W</div>
+              <div className="w-8 h-8 bg-blue-600 rounded-lg flex items-center justify-center font-bold text-white font-display">U</div>
               <div>
                 <span id="title-ua" className={`text-base sm:text-lg font-extrabold tracking-tight flex items-center gap-1.5 leading-none font-display ${theme === 'dark' ? 'text-white' : 'text-slate-900'}`}>
                  WWTBAS </span>
@@ -295,7 +295,7 @@ export default function App() {
                   </div>
 
                   <h1 className="text-4xl sm:text-5xl font-black tracking-tight text-white leading-none font-display">
-                    The Right Place To Be
+                    The Ultrasound Academy
                   </h1>
                   
                   <p className="text-lg sm:text-xl font-bold italic text-blue-200 opacity-90">
