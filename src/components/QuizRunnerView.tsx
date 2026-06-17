@@ -40,7 +40,14 @@ export default function QuizRunnerView({ currentUser, testId, onFinished }: Quiz
       setTimeLeft(matched.duration * 60);
     }
 
-    const testQs = FirebaseStore.getQuestionsForTest(testId);
+    const testQs = [...FirebaseStore.getQuestionsForTest(testId)];
+    // Fisher-Yates shuffle to randomize questions for every student session
+    for (let i = testQs.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      const temp = testQs[i];
+      testQs[i] = testQs[j];
+      testQs[j] = temp;
+    }
     setQuestions(testQs);
   }, [testId]);
 
@@ -235,45 +242,45 @@ export default function QuizRunnerView({ currentUser, testId, onFinished }: Quiz
 
       {/* Quiz Running State */}
       {quizState === 'running' && currentQuestion && (
-        <div className="space-y-6">
+        <div className="space-y-4 sm:space-y-6 px-1 sm:px-0">
           
           {/* Runner Header Bar */}
-          <div className="bg-[#1E293B] rounded-3xl border border-slate-700 shadow-xl p-4 flex justify-between items-center animate-fade-in shadow-blue-500/5">
-            <div className="flex items-center gap-3">
-              <span className="px-2.5 py-0.5 rounded-full text-[10px] font-mono font-bold bg-slate-900 text-slate-400 border border-slate-800">
+          <div className="bg-[#1E293B] rounded-2xl sm:rounded-3xl border border-slate-700 shadow-xl p-3 sm:p-4 flex flex-col sm:flex-row justify-between items-stretch sm:items-center gap-3 animate-fade-in shadow-blue-500/5">
+            <div className="flex items-center gap-2.5 min-w-0">
+              <span className="shrink-0 px-2 py-0.5 rounded-full text-[9px] font-mono font-bold bg-slate-900 text-slate-400 border border-slate-800">
                 Evaluating
               </span>
-              <h3 className="font-bold text-white text-sm truncate max-w-sm font-display">
+              <h3 className="font-bold text-white text-xs sm:text-sm truncate font-display">
                 {test.title}
               </h3>
             </div>
 
             {/* Live timer clock */}
-            <div className={`px-4 py-2 rounded-xl flex items-center gap-2 font-mono text-sm font-bold border ${timeLeft < 60 ? 'bg-rose-950/40 text-rose-400 border-rose-900/40 animate-pulse' : 'bg-slate-900/45 text-slate-200 border-slate-800'}`}>
-              <Clock className={`w-4 h-4 ${timeLeft < 60 ? 'text-rose-455 text-rose-400' : 'text-slate-500'}`} />
+            <div className={`px-3 py-1.5 sm:px-4 sm:py-2 rounded-xl flex items-center justify-center gap-2 font-mono text-xs sm:text-sm font-bold border shrink-0 ${timeLeft < 60 ? 'bg-rose-950/40 text-rose-400 border-rose-900/40 animate-pulse' : 'bg-slate-900/45 text-slate-200 border-slate-800'}`}>
+              <Clock className={`w-3.5 h-3.5 sm:w-4 sm:h-4 ${timeLeft < 60 ? 'text-rose-455 text-rose-400' : 'text-slate-500'}`} />
               <span>{mm}:{ss}</span>
             </div>
           </div>
 
-          <div className="grid grid-cols-1 lg:grid-cols-4 gap-6 items-start">
+          <div className="grid grid-cols-1 lg:grid-cols-4 gap-4 sm:gap-6 items-start">
             
-            {/* Question indexes sidebar */}
-            <div className="bg-[#1E293B] rounded-3xl border border-slate-700 shadow-xl p-4 space-y-3">
+            {/* Question indexes sidebar - Rendered 2nd on mobile to prevent forcing students to scroll down */}
+            <div className="order-2 lg:order-1 bg-[#1E293B] rounded-2xl sm:rounded-3xl border border-slate-700 shadow-xl p-4 space-y-3">
               <h5 className="text-[11px] font-bold text-slate-400 uppercase tracking-wider font-mono">Evaluation Index</h5>
-              <div className="grid grid-cols-4 sm:grid-cols-5 lg:grid-cols-3 gap-2">
+              <div className="grid grid-cols-5 sm:grid-cols-6 lg:grid-cols-3 gap-1.5 sm:gap-2">
                 {questions.map((q, idx) => {
                   const isAnswered = answers[q.id] !== undefined;
                   const isCurrent = idx === currentQuestionIndex;
 
                   let indicatorClass = 'bg-slate-900 border-slate-800 text-slate-400 hover:bg-slate-800';
-                  if (isCurrent) indicatorClass = 'bg-blue-600 text-white ring-4 ring-blue-500/20 border-blue-600';
-                  else if (isAnswered) indicatorClass = 'bg-blue-950/20 text-blue-400 border-blue-905 border-blue-900/30';
+                  if (isCurrent) indicatorClass = 'bg-blue-600 text-white ring-2 ring-blue-500/30 border-blue-600';
+                  else if (isAnswered) indicatorClass = 'bg-blue-950/20 text-blue-400 border-blue-900/30';
 
                   return (
                     <button
                       key={q.id}
                       onClick={() => setCurrentQuestionIndex(idx)}
-                      className={`h-10 text-xs font-mono font-bold rounded-xl border flex items-center justify-center transition-all cursor-pointer ${indicatorClass}`}
+                      className={`h-9 sm:h-10 text-xs font-mono font-bold rounded-lg sm:rounded-xl border flex items-center justify-center transition-all cursor-pointer ${indicatorClass}`}
                     >
                       {idx + 1}
                     </button>
@@ -303,22 +310,22 @@ export default function QuizRunnerView({ currentUser, testId, onFinished }: Quiz
               </div>
             </div>
 
-            {/* Actual Question panel */}
-            <div className="lg:col-span-3 bg-[#1E293B] rounded-3xl border border-slate-700 shadow-xl p-6 sm:p-8 space-y-6">
+            {/* Actual Question panel - Rendered 1st on mobile so students see question text instantly */}
+            <div className="order-1 lg:col-span-3 lg:order-2 bg-[#1E293B] rounded-2xl sm:rounded-3xl border border-slate-700 shadow-xl p-4 sm:p-8 space-y-4 sm:space-y-6">
               
               {/* Index details */}
-              <div className="flex justify-between items-center text-xs font-mono font-bold text-slate-450 uppercase tracking-widest pb-4 border-b border-slate-800">
+              <div className="flex justify-between items-center text-[10px] sm:text-xs font-mono font-bold text-slate-450 uppercase tracking-widest pb-3 border-b border-slate-800">
                 <span>QUESTION {currentQuestionIndex + 1} OF {questions.length}</span>
-                <span>Topic: {test.topic}</span>
+                <span className="truncate max-w-[150px] sm:max-w-none">Topic: {test.topic}</span>
               </div>
 
               {/* Question Text */}
-              <h2 className="text-base sm:text-lg font-bold text-white leading-relaxed font-display">
+              <h2 className="text-sm sm:text-base md:text-lg font-bold text-white leading-relaxed font-display">
                 {currentQuestion.questionText}
               </h2>
 
               {/* Choices list */}
-              <div id="choices-list" className="space-y-3">
+              <div id="choices-list" className="space-y-2.5 sm:space-y-3">
                 {currentQuestion.options.map((option, index) => {
                   const isSelected = selectedOptionForCurrent === index;
 
@@ -326,12 +333,12 @@ export default function QuizRunnerView({ currentUser, testId, onFinished }: Quiz
                     <button
                       key={index}
                       onClick={() => selectOption(index)}
-                      className={`w-full p-4 rounded-2xl border flex items-center gap-4 transition-all cursor-pointer text-left ${isSelected ? 'bg-blue-950/30 border-blue-500 hover:bg-blue-950/40 shadow-lg shadow-blue-500/5' : 'bg-slate-900/40 border-slate-800 text-slate-350 hover:bg-slate-905/40'}`}
+                      className={`w-full p-3 sm:p-4 rounded-xl sm:rounded-2xl border flex items-center gap-3 sm:gap-4 transition-all cursor-pointer text-left ${isSelected ? 'bg-blue-950/30 border-blue-500 hover:bg-blue-950/40 shadow-lg shadow-blue-500/5' : 'bg-slate-900/40 border-slate-800 text-slate-350 hover:bg-slate-905/40'}`}
                     >
-                      <span className={`flex h-6 w-6 rounded-xl border items-center justify-center text-xs font-bold transition-transform ${isSelected ? 'bg-blue-600 border-blue-600 text-white hover:scale-105' : 'bg-slate-800 border-slate-700 text-slate-400'}`}>
+                      <span className={`flex h-5 w-5 sm:h-6 sm:w-6 rounded-lg sm:rounded-xl border items-center justify-center text-xs font-bold shrink-0 transition-transform ${isSelected ? 'bg-blue-600 border-blue-600 text-white hover:scale-105' : 'bg-slate-800 border-slate-700 text-slate-400'}`}>
                         {String.fromCharCode(65 + index)}
                       </span>
-                      <span className={`text-sm font-sans ${isSelected ? 'font-bold text-white' : 'text-slate-350 font-medium'}`}>
+                      <span className={`text-xs sm:text-sm font-sans ${isSelected ? 'font-bold text-white' : 'text-slate-350 font-medium'}`}>
                         {option}
                       </span>
                     </button>
@@ -340,11 +347,11 @@ export default function QuizRunnerView({ currentUser, testId, onFinished }: Quiz
               </div>
 
               {/* Next and Previous Controls */}
-              <div className="flex justify-between pt-6 border-t border-slate-800">
+              <div className="flex justify-between pt-4 sm:pt-6 border-t border-slate-800">
                 <button
                   onClick={handlePrev}
                   disabled={currentQuestionIndex === 0}
-                  className="px-4 py-2 border border-slate-700 bg-slate-900/40 text-slate-350 hover:bg-slate-800 disabled:opacity-30 disabled:cursor-not-allowed flex items-center gap-1 cursor-pointer rounded-xl text-xs font-bold"
+                  className="px-3 py-1.5 sm:px-4 sm:py-2 border border-slate-700 bg-slate-900/40 text-slate-350 hover:bg-slate-800 disabled:opacity-30 disabled:cursor-not-allowed flex items-center gap-1 cursor-pointer rounded-lg sm:rounded-xl text-xs font-bold"
                 >
                   <ArrowLeft className="w-3.5 h-3.5" />
                   <span>Previous</span>
@@ -353,7 +360,7 @@ export default function QuizRunnerView({ currentUser, testId, onFinished }: Quiz
                 {currentQuestionIndex < questions.length - 1 ? (
                   <button
                     onClick={handleNext}
-                    className="px-5 py-2 bg-[#0F172A] hover:bg-slate-905 border border-slate-800 text-white rounded-xl text-xs font-bold flex items-center gap-1 cursor-pointer transition-all"
+                    className="px-4 py-1.5 sm:px-5 sm:py-2 bg-[#0F172A] hover:bg-slate-905 border border-slate-800 text-white rounded-lg sm:rounded-xl text-xs font-bold flex items-center gap-1 cursor-pointer transition-all"
                   >
                     <span>Next</span>
                     <ArrowRight className="w-3.5 h-3.5" />
@@ -361,7 +368,7 @@ export default function QuizRunnerView({ currentUser, testId, onFinished }: Quiz
                 ) : (
                   <button
                     onClick={handleSubmit}
-                    className="px-5 py-2 bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl text-xs font-bold flex items-center gap-1 cursor-pointer shadow-md shadow-emerald-500/25 animate-pulse"
+                    className="px-4 py-1.5 sm:px-5 sm:py-2 bg-emerald-600 hover:bg-emerald-700 text-white rounded-lg sm:rounded-xl text-xs font-bold flex items-center gap-1 cursor-pointer shadow-md shadow-emerald-500/25 animate-pulse"
                   >
                     <span>Submit & Finish</span>
                     <Check className="w-3.5 h-3.5" />

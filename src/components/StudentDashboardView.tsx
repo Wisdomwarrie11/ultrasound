@@ -148,7 +148,7 @@ export default function StudentDashboardView({ currentUser, onStartQuiz, onRevie
               <p className="text-blue-300 text-xs font-semibold uppercase tracking-wider font-mono">Sonographer Portal</p>
             </div>
             <h1 className="text-2xl sm:text-3xl font-extrabold tracking-tight font-display">
-              Welcome back, {currentUser.name}!
+              Welcome, {currentUser.name}!
             </h1>
             <p className="text-slate-300 text-sm mt-1 max-w-xl">
               Sharpen your core physics, imaging metrics, and diagnostics. Let's see if you can become today's master Sononaire!
@@ -243,7 +243,7 @@ export default function StudentDashboardView({ currentUser, onStartQuiz, onRevie
               <div>
                 <h3 className="text-lg font-bold text-white flex items-center gap-2 font-display">
                   <span className="flex h-3 w-3 rounded-full bg-blue-500" />
-                  Active Tests (Available Today)
+                  Active Tests
                 </h3>
                 <p className="text-xs text-slate-400 mt-0.5">These quizzes are open for submission only on their scheduled date.</p>
               </div>

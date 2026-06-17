@@ -359,13 +359,13 @@ export default function AdminDashboardView({ currentUser }: AdminDashboardViewPr
                       </div>
 
                       {/* Tool Actions */}
-                      <div className="absolute right-4 top-10 flex gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
+                      <div className="absolute right-3 top-3 flex gap-1.5 opacity-100 sm:opacity-0 sm:group-hover:opacity-100 transition-opacity">
                         <button
                           onClick={(e) => {
                             e.stopPropagation();
                             handleOpenTestModal(test);
                           }}
-                          className="p-1.5 bg-slate-805 bg-slate-800 text-slate-200 border border-slate-700 rounded hover:bg-slate-700 cursor-pointer shadow-sm"
+                          className="p-1.5 bg-slate-800 text-slate-205 text-white border border-slate-700 rounded-lg hover:bg-slate-700 cursor-pointer shadow-sm transition-all focus:ring-1 focus:ring-blue-500"
                           title="Edit Specification"
                         >
                           <Edit2 className="w-3.5 h-3.5" />
@@ -375,7 +375,7 @@ export default function AdminDashboardView({ currentUser }: AdminDashboardViewPr
                             e.stopPropagation();
                             handleDeleteTest(test.id);
                           }}
-                          className="p-1.5 bg-slate-800 text-slate-400 border border-slate-700 rounded hover:bg-rose-950/45 hover:text-rose-400 cursor-pointer shadow-sm"
+                          className="p-1.5 bg-slate-800 text-slate-400 border border-slate-700 rounded-lg hover:bg-rose-950/45 hover:text-rose-400 cursor-pointer shadow-sm transition-all focus:ring-1 focus:ring-rose-500"
                           title="Delete Spec"
                         >
                           <Trash2 className="w-3.5 h-3.5" />
@@ -460,17 +460,17 @@ export default function AdminDashboardView({ currentUser }: AdminDashboardViewPr
                         </div>
 
                         {/* Inline controls */}
-                        <div className="absolute right-4 top-3 opacity-0 group-hover:opacity-100 transition-opacity flex gap-1">
+                        <div className="absolute right-3 top-3 opacity-100 sm:opacity-0 sm:group-hover:opacity-100 transition-opacity flex gap-1.5 bg-slate-900/90 sm:bg-transparent p-1 sm:p-0 rounded-lg">
                           <button
                             onClick={() => handleOpenQuestionModal(q)}
-                            className="p-1.5 bg-slate-800 hover:bg-slate-700 border border-slate-750 text-slate-200 rounded-lg cursor-pointer shadow-sm"
+                            className="p-1.5 bg-slate-800 hover:bg-slate-700 border border-slate-750 text-slate-200 rounded-lg cursor-pointer shadow-sm transition-all focus:ring-1 focus:ring-blue-500"
                             title="Edit Question"
                           >
                             <Edit2 className="w-3 h-3" />
                           </button>
                           <button
                             onClick={() => handleDeleteQuestion(q.id)}
-                            className="p-1.5 bg-slate-800 hover:bg-rose-950/45 border border-slate-750 hover:text-rose-400 text-slate-400 rounded-lg cursor-pointer shadow-sm"
+                            className="p-1.5 bg-slate-800 hover:bg-rose-950/45 border border-slate-750 hover:text-rose-400 text-slate-400 rounded-lg cursor-pointer shadow-sm transition-all focus:ring-1 focus:ring-rose-500"
                             title="Delete Question"
                           >
                             <Trash2 className="w-3 h-3" />
@@ -740,11 +740,11 @@ export default function AdminDashboardView({ currentUser }: AdminDashboardViewPr
                     type="url"
                     value={testQuizLink}
                     onChange={(e) => setTestQuizLink(e.target.value)}
-                    placeholder="https://docs.google.com/forms/d/e/... (Share a quiz directly via web link)"
+                    placeholder="https://docs.google.com/forms/d/e/... (Leave empty for standard native test)"
                     className="w-full px-3.5 py-2 text-sm rounded-xl border border-slate-200 outline-none focus:border-teal-500 focus:ring-1 focus:ring-teal-500/20 text-slate-900"
                   />
-                  <p className="text-[10px] text-slate-400 mt-1">
-                    If this link is provided, student candidates will access this shared external resource instead of taking the local multiple-choice form.
+                  <p className="text-[10px] text-slate-500 mt-1">
+                    💡 <strong>Pro-Tip:</strong> Leave this blank to create a fully interactive standard game challenge directly on this platform! If you fill this in, students will be redirected to this external form link instead of the native Quiz Session interface.
                   </p>
                 </div>
 
