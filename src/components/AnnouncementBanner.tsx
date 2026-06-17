@@ -29,7 +29,7 @@ export default function AnnouncementBanner() {
             </div>
             
             <h3 className="text-xl sm:text-2xl font-black tracking-tight text-white font-display leading-tight">
-             Do you know that you can contribute your resources on StudiRad? <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-indigo-300 font-extrabold">StudiRad</span>!
+             You can contribute your resources on <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-indigo-300 font-extrabold">StudiRad</span>!
             </h3>
             
             <p className="text-slate-300 text-sm leading-relaxed max-w-3xl">
