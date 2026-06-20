@@ -261,7 +261,7 @@ export default function AdminDashboardView({ currentUser }: AdminDashboardViewPr
             Academy Control Center
           </h1>
           <p className="text-slate-400 text-sm mt-1 max-w-xl font-sans">
-            Oversee, compose and authorize computer-based scanning evaluations for custom diagnostic groups.
+            Oversee, compose and authorize computer-based test.
           </p>
         </div>
 

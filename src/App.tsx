@@ -423,30 +423,6 @@ export default function App() {
           <p className="text-center md:text-left">
             © 2026 Ultrasound Academy. Practice platform for medical ultrasound imaging.
           </p>
-
-          <div className="flex flex-wrap gap-4 items-center justify-center">
-            <a 
-              href="https://www.studirad.org" 
-              target="_blank" 
-              rel="noopener noreferrer" 
-              className="text-blue-400 hover:text-blue-300 font-bold flex items-center gap-1 cursor-pointer"
-            >
-              <span>Partner: StudiRad</span>
-              <ExternalLink className="w-3 h-3" />
-            </a>
-
-            <span className="text-slate-700">|</span>
-
-            <a 
-              href="https://studifocus.vercel.app" 
-              target="_blank" 
-              rel="noopener noreferrer" 
-              className="text-slate-300 hover:text-white font-bold flex items-center gap-1 cursor-pointer"
-            >
-              <span>StudiFocus App</span>
-              <Layers className="w-3 h-3" />
-            </a>
-          </div>
         </div>
       </footer>
 
