@@ -116,11 +116,11 @@ export default function AdminDashboardView({ currentUser }: AdminDashboardViewPr
 
     if (!editingTestId && testStatus === 'published') {
       // Create new notification for published tests
-      FirebaseStore.addNotification(`Dr. Robert Stone published [${saved.title}]. Start testing!`);
+      FirebaseStore.addNotification(`Dr. Robert Stone published [${saved.title}]. Take it now!`);
     } else if (editingTestId && testStatus === 'published') {
       const oldStatus = tests.find(t => t.id === editingTestId)?.status;
       if (oldStatus === 'draft') {
-        FirebaseStore.addNotification(`Dr. Robert Stone published [${saved.title}]. Start testing!`);
+        FirebaseStore.addNotification(`Dr. Robert Stone published [${saved.title}]. Take it now!`);
       }
     }
 
@@ -129,7 +129,7 @@ export default function AdminDashboardView({ currentUser }: AdminDashboardViewPr
   };
 
   const handleDeleteTest = (id: string) => {
-    if (window.confirm('Are you absolutely sure you want to delete this test? All questions and student scores submitted for this test will be permanently deleted.')) {
+    if (window.confirm('Are you sure you want to delete this quiz? All questions and student scores for this quiz will be permanently deleted.')) {
       FirebaseStore.deleteTest(id);
       if (selectedTestId === id) {
         setSelectedTestId(null);
@@ -405,7 +405,7 @@ export default function AdminDashboardView({ currentUser }: AdminDashboardViewPr
                     <h3 className="text-base font-bold text-white font-display">
                       📝 {activeTest?.title}
                     </h3>
-                    <p className="text-xs text-slate-400 mt-0.5 font-mono">MCQ Bank Pool: {activeTestQuestions.length} Questions</p>
+                    <p className="text-xs text-slate-400 mt-0.5 font-mono">Questions in this quiz: {activeTestQuestions.length}</p>
                   </div>
 
                   <button
@@ -413,15 +413,15 @@ export default function AdminDashboardView({ currentUser }: AdminDashboardViewPr
                     className="px-3.5 py-2 bg-blue-600 hover:bg-blue-700 text-white font-bold rounded-lg text-xs flex items-center gap-1 cursor-pointer transition-all shadow-md shadow-blue-500/20"
                   >
                     <Plus className="w-3.5 h-3.5" />
-                    <span>Add MCQ Question</span>
+                    <span>Add New Question</span>
                   </button>
                 </div>
 
                 {activeTestQuestions.length === 0 ? (
                   <div className="text-center py-12 bg-slate-900/40 rounded-2xl border border-dashed border-slate-800">
                     <List className="w-8 h-8 text-slate-655 mx-auto mb-2" />
-                    <p className="text-slate-205 text-white font-bold text-sm">MCQ Pool Empty</p>
-                    <p className="text-slate-400 text-xs mt-1 font-sans">Add multiple-choice items with precise diagnostic option vectors and keys.</p>
+                    <p className="text-slate-205 text-white font-bold text-sm">No questions yet</p>
+                    <p className="text-slate-400 text-xs mt-1 font-sans">Add multiple-choice questions with answers and helpful explanations.</p>
                   </div>
                 ) : (
                   <div className="space-y-4 max-h-[550px] overflow-y-auto pr-1">
@@ -492,9 +492,9 @@ export default function AdminDashboardView({ currentUser }: AdminDashboardViewPr
           <div className="flex justify-between items-center mb-6">
             <div>
               <h3 className="text-lg font-bold text-white font-display">
-                📊 Real-Time Candidate Scoring Log
+                📊 Student Quiz Scores
               </h3>
-              <p className="text-slate-400 text-xs mt-0.5">Real-time compilation of sonographer evaluations. Access and monitor metrics instantly.</p>
+              <p className="text-slate-400 text-xs mt-0.5">View scores and times of completed student quizzes.</p>
             </div>
             
             <button
@@ -516,10 +516,10 @@ export default function AdminDashboardView({ currentUser }: AdminDashboardViewPr
                 <thead>
                   <tr className="border-b border-slate-800 text-xs font-semibold uppercase text-slate-500 tracking-wider font-mono">
                     <th className="py-3 px-4">Student Name</th>
-                    <th className="py-3 px-4">Evaluation Test</th>
-                    <th className="py-3 px-4 text-center">Questions Checked</th>
-                    <th className="py-3 px-4 text-center">Score Grade</th>
-                    <th className="py-3 px-4 text-center">Duration</th>
+                    <th className="py-3 px-4">Quiz Name</th>
+                    <th className="py-3 px-4 text-center">Questions Answered</th>
+                    <th className="py-3 px-4 text-center">Score</th>
+                    <th className="py-3 px-4 text-center">Time Taken</th>
                     <th className="py-3 px-4 text-right">Completion Time</th>
                   </tr>
                 </thead>

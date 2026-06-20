@@ -79,10 +79,10 @@ export default function LeaderboardView({ results }: LeaderboardViewProps) {
         <div>
           <h2 className="text-xl font-bold text-white flex items-center gap-2 font-display">
             <Trophy className="w-5 h-5 text-yellow-500 animate-pulse" />
-            Sononaire Leaderboard
+            Quiz Leaderboard
           </h2>
           <p className="text-slate-400 text-sm mt-0.5">
-            The highest scoring sonographers in the "Who Wants to Be a Sononaire" feature challenge.
+            The top scoring students in the quiz challenge.
           </p>
         </div>
 
@@ -90,7 +90,7 @@ export default function LeaderboardView({ results }: LeaderboardViewProps) {
           <Search className="absolute left-3 top-2.5 h-4 w-4 text-slate-500" />
           <input
             type="text"
-            placeholder="Search sonographer..."
+            placeholder="Search students..."
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
             className="pl-9 pr-4 py-1.5 w-full sm:w-60 text-sm rounded-xl bg-[#0F172A] border border-slate-700 text-white outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500/20 font-medium"
@@ -109,7 +109,7 @@ export default function LeaderboardView({ results }: LeaderboardViewProps) {
             <thead>
               <tr className="border-b border-slate-800 text-[10px] font-bold uppercase text-slate-400 tracking-wider font-mono">
                 <th className="py-3 px-4 text-center w-12">Rank</th>
-                <th className="py-3 px-4">Sonographer</th>
+                <th className="py-3 px-4">Student</th>
                 <th className="py-3 px-4 text-center">Quizzes Taken</th>
                 <th className="py-3 px-4 text-center">Highest Score</th>
                 <th className="py-3 px-4 text-center">Avg. Score</th>

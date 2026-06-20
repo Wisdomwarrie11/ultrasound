@@ -145,16 +145,30 @@ export default function StudentDashboardView({ currentUser, onStartQuiz, onRevie
           <div>
             <div className="flex items-center gap-2 mb-2">
               <span className="flex h-2 w-2 rounded-full bg-blue-400 animate-pulse" />
-              <p className="text-blue-300 text-xs font-semibold uppercase tracking-wider font-mono">Sonographer Portal</p>
+              <p className="text-blue-300 text-xs font-semibold uppercase tracking-wider font-mono">Student Portal</p>
             </div>
             <h1 className="text-2xl sm:text-3xl font-extrabold tracking-tight font-display">
-              Welcome, {currentUser.name}!
+              Welcome back, {currentUser.name}!
             </h1>
             <p className="text-slate-300 text-sm mt-1 max-w-xl">
-              Sharpen your core physics, imaging metrics, and diagnostics. Let's see if you can become today's master Sononaire!
+              Sharpen your ultrasound skills. Let's see if you can become today's master Sononaire!
             </p>
           </div>
 
+          <div className="flex gap-4 items-center shrink-0">
+            {/* StudiFocus Promo Button */}
+            <a
+              href="https://studifocus.vercel.app"
+              target="_blank"
+              rel="noopener noreferrer"
+              id="studifocus-promo-btn"
+              className="px-5 py-3 bg-[#1e293b]/80 hover:bg-slate-800 text-white border border-slate-700 rounded-xl flex items-center gap-2 transition-all duration-150 cursor-pointer text-sm font-semibold shadow-inner"
+            >
+              <Layers className="w-4 h-4 text-blue-400" />
+              <span>Launch StudiFocus</span>
+              <ExternalLink className="w-3.5 h-3.5 opacity-60" />
+            </a>
+          </div>
         </div>
       </div>
 
@@ -187,9 +201,9 @@ export default function StudentDashboardView({ currentUser, onStartQuiz, onRevie
             </div>
             <div>
               <h3 className="text-base font-bold text-white font-display">
-                📢 Academy Bulletin Board
+                📢 Academy Notice Board
               </h3>
-              <p className="text-xs text-slate-400">Published program assignments, clinical group notices, classes and live schedules.</p>
+              <p className="text-xs text-slate-400">Latest announcements, class updates, and schedules.</p>
             </div>
           </div>
 
@@ -243,9 +257,9 @@ export default function StudentDashboardView({ currentUser, onStartQuiz, onRevie
               <div>
                 <h3 className="text-lg font-bold text-white flex items-center gap-2 font-display">
                   <span className="flex h-3 w-3 rounded-full bg-blue-500" />
-                  Active Tests
+                  Active Quizzes (Available Today)
                 </h3>
-                <p className="text-xs text-slate-400 mt-0.5">These quizzes are open for submission only on their scheduled date.</p>
+                <p className="text-xs text-slate-400 mt-0.5">These quizzes are open only on their scheduled dates.</p>
               </div>
               <span className="text-xs font-mono font-medium text-slate-350 bg-slate-900 border border-slate-800 px-2.5 py-1 rounded-md">
                 Date: {TODAY_STR}
@@ -321,7 +335,7 @@ export default function StudentDashboardView({ currentUser, onStartQuiz, onRevie
           <div className="bg-[#1E293B] rounded-3xl border border-slate-700 p-6">
             <h3 className="text-lg font-bold text-white mb-4 flex items-center gap-2 font-display">
               <Calendar className="w-5 h-5 text-slate-400" />
-              Locked & Historical Tests
+              Upcoming & Expired Quizzes
             </h3>
             
             <div className="space-y-3">
@@ -329,7 +343,7 @@ export default function StudentDashboardView({ currentUser, onStartQuiz, onRevie
               {missedTests.map(test => (
                 <div key={test.id} className="flex justify-between items-center p-4 bg-rose-950/20 border border-rose-900/30 rounded-xl">
                   <div>
-                    <span className="text-[10px] font-bold uppercase tracking-wider text-rose-400 font-mono">Missed Session</span>
+                    <span className="text-[10px] font-bold uppercase tracking-wider text-rose-400 font-mono">Missed Quiz</span>
                     <h5 className="text-sm font-bold text-white font-display">{test.title}</h5>
                     <p className="text-xs text-slate-450 mt-0.5">Scheduled on {test.scheduledDate} (Unanswered)</p>
                   </div>
@@ -357,7 +371,7 @@ export default function StudentDashboardView({ currentUser, onStartQuiz, onRevie
 
               {missedTests.length === 0 && lockedTests.length === 0 && (
                 <p className="text-center py-6 text-slate-500 text-sm border border-dashed border-slate-800 rounded-xl font-mono">
-                  No other scheduled or expired tests pending.
+                  No other scheduled or expired quizzes pending.
                 </p>
               )}
             </div>
@@ -367,7 +381,7 @@ export default function StudentDashboardView({ currentUser, onStartQuiz, onRevie
           <div className="bg-[#1E293B] rounded-3xl border border-slate-700 p-6">
             <h3 className="text-lg font-bold text-white mb-4 flex items-center gap-2 font-display">
               <CheckCircle className="w-5 h-5 text-emerald-450" />
-              Completed Tests & Previous Scores
+              Completed Quizzes
             </h3>
 
             {completedResults.length === 0 ? (
@@ -427,11 +441,11 @@ export default function StudentDashboardView({ currentUser, onStartQuiz, onRevie
             <Trophy className="w-12 h-12 text-amber-200 animate-bounce mb-3" />
             <h4 className="text-lg font-bold font-display">The Sononaire Status</h4>
             <p className="text-amber-100 text-xs mt-1">
-              Score a flawless 100% on any quiz challenge within 3 minutes to unlock the prestigious <strong>Master Sononaire</strong> credentials badge and top the leaderboards!
+              Score a perfect 100% on any quiz within 3 minutes to unlock the prestigious <strong>Master Sononaire</strong> badge and top the leaderboard!
             </p>
             <div className="mt-4 pt-4 border-t border-white/10 flex items-center justify-between text-xs font-semibold text-amber-100 font-mono">
               <span>My Quizzes: {completedResults.length}</span>
-              <span>Avg Percentage: {
+              <span>Avg Score: {
                 completedResults.length > 0 
                   ? Math.round(completedResults.reduce((acc, c) => acc + (c.score / c.totalQuestions), 0) / completedResults.length * 100)
                   : 0
@@ -447,7 +461,7 @@ export default function StudentDashboardView({ currentUser, onStartQuiz, onRevie
                   <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-blue-400 opacity-75"></span>
                   <span className="relative inline-flex rounded-full h-2 w-2 bg-blue-500"></span>
                 </span>
-                🔔 System Alerts
+                🔔 System Updates
               </h4>
               <button 
                 onClick={() => {

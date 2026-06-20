@@ -164,7 +164,11 @@ export default function App() {
               <div className="w-8 h-8 bg-blue-600 rounded-lg flex items-center justify-center font-bold text-white font-display">U</div>
               <div>
                 <span id="title-ua" className={`text-base sm:text-lg font-extrabold tracking-tight flex items-center gap-1.5 leading-none font-display ${theme === 'dark' ? 'text-white' : 'text-slate-900'}`}>
-                 WWTBAS </span>
+                  Ultrasound <span className="text-blue-500">Academy</span>
+                </span>
+                <span className="text-[10px] sm:text-xs font-bold text-blue-400 font-mono tracking-widest uppercase block mt-1 leading-none">
+                  Sononaire Challenge
+                </span>
               </div>
             </div>
 
@@ -177,10 +181,10 @@ export default function App() {
                   setPasswordForm('WWTBASS2');
                 }}
                 className={`hidden md:flex items-center gap-1.5 px-3 py-1.5 rounded-xl border transition-all text-xs font-bold cursor-pointer animate-pulse ${theme === 'dark' ? 'bg-slate-900 border-slate-800 text-slate-350 hover:text-white' : 'bg-white border-slate-200 text-slate-600 hover:text-slate-900 shadow-sm'}`}
-                title="Clinical Admin Portal Quick-Access Logo"
+                title="Quick admin login"
               >
                 <Shield className="w-4 h-4 text-blue-600" />
-                <span>Admin Login Logo</span>
+                <span>Quick Admin Login</span>
               </button>
             )}
           </div>
@@ -290,12 +294,12 @@ export default function App() {
                   <div className="inline-flex items-center gap-2 px-3 py-1 bg-yellow-500/10 border border-yellow-500/20 rounded-full text-yellow-500">
                     <Sparkles className="w-3.5 h-3.5 text-yellow-500" />
                     <span className="text-[10px] font-bold uppercase tracking-wider font-mono">
-                      Who Wants To Be A Sononaire
+                      Who Wants to Be a Sononaire
                     </span>
                   </div>
 
                   <h1 className="text-4xl sm:text-5xl font-black tracking-tight text-white leading-none font-display">
-                    The Ultrasound Academy
+                    Ultrasound Academy
                   </h1>
                   
                   <p className="text-lg sm:text-xl font-bold italic text-blue-200 opacity-90">
@@ -303,20 +307,21 @@ export default function App() {
                   </p>
 
                   <p className="text-slate-350 text-sm leading-relaxed max-w-xl">
-                    Welcome to the specialized Computer-Based Testing (CBT) portal for WWTBAS Challenge.</p>
+                    Welcome to our interactive practice platform for ultrasound students and medical imagers. Study physics, blood flow, and anatomy questions easily.
+                  </p>
 
                   <div className="flex flex-wrap gap-4 justify-center md:justify-start">
                     <button
                       onClick={() => handleOpenAuth('register')}
                       className="bg-yellow-500 hover:bg-yellow-600 text-black font-bold px-6 py-3 rounded-full text-sm uppercase tracking-wider shadow-lg shadow-yellow-500/20 transition-all hover:scale-[1.02] cursor-pointer"
                     >
-                      Start Free Challenge
+                      Start Practice Quiz
                     </button>
                     <button
                       onClick={() => handleOpenAuth('login')}
                       className="border border-slate-600 hover:border-slate-400 text-slate-300 hover:text-white px-6 py-3 rounded-full text-sm transition-all cursor-pointer bg-slate-900/40 hover:bg-slate-800/40"
                     >
-                      Log In Portal
+                      Log In
                     </button>
                   </div>
                 </div>
@@ -325,15 +330,15 @@ export default function App() {
                   {/* Dynamic interactive feature summary stats */}
                   <div className="p-5 bg-[#1E293B] rounded-2xl border border-slate-700 text-center">
                     <p className="text-3xl font-black text-blue-400 font-display">98%</p>
-                    <p className="text-xs font-bold text-slate-400 uppercase tracking-wide mt-1 font-mono">SPI Success Rate</p>
+                    <p className="text-xs font-bold text-slate-400 uppercase tracking-wide mt-1 font-mono">Exam Success Rate</p>
                   </div>
                   <div className="p-5 bg-[#1E293B] rounded-2xl border border-slate-700 text-center">
-                    <p className="text-3xl font-black text-yellow-500 font-display">MCQ</p>
-                    <p className="text-xs font-bold text-slate-400 uppercase tracking-wide mt-1 font-mono">Core Explanations</p>
+                    <p className="text-3xl font-black text-yellow-500 font-display">Core</p>
+                    <p className="text-xs font-bold text-slate-400 uppercase tracking-wide mt-1 font-mono">Detailed Explanations</p>
                   </div>
                   <div className="p-5 bg-gradient-to-r from-blue-600 to-indigo-600 border border-blue-500/30 rounded-2xl text-center col-span-2">
                     <p className="text-sm font-bold text-white font-display">Leaderboard Challenges</p>
-                    <p className="text-xs text-blue-100 mt-1">Join RDMS specialists in the real-time sonography leaderboards</p>
+                    <p className="text-xs text-blue-100 mt-1">Join students and practitioners on the leaderboards</p>
                   </div>
                 </div>
               </div>
@@ -347,30 +352,62 @@ export default function App() {
               <AnnouncementBanner />
             </div>
 
+            {/* Quick Demo Logins Container */}
+            <div className="p-6 bg-[#121B2E] rounded-3xl border border-slate-800 grid grid-cols-1 md:grid-cols-3 gap-6 items-center">
+              <div>
+                <h4 className="text-sm font-bold text-white flex items-center gap-1.5 font-display">
+                  <Shield className="w-4 h-4 text-emerald-400 animate-pulse" />
+                  Quick Demo Sign In
+                </h4>
+                <p className="text-xs text-slate-400 mt-0.5">
+                  Sign in instantly to test our platform as a student or explore the quiz administration features.
+                </p>
+              </div>
+
+              <div className="flex flex-col sm:flex-row md:col-span-2 gap-4 justify-end">
+                <button
+                  type="button"
+                  onClick={() => handleQuickLogin('student@ua.edu')}
+                  className="px-4 py-3 bg-[#1E293B] hover:bg-slate-800 rounded-xl border border-slate-700 text-xs text-left cursor-pointer transition-all hover:scale-[1.01] group"
+                >
+                  <p className="font-bold text-white group-hover:text-blue-400 transition-colors">Login as student Sarah</p>
+                  <p className="text-[10px] text-slate-400 font-mono mt-0.5">student@ua.edu</p>
+                </button>
+
+                <button
+                  type="button"
+                  onClick={() => handleQuickLogin('wwtbas@gmail.com')}
+                  className="px-4 py-3 bg-[#1E293B] hover:bg-slate-800 rounded-xl border border-slate-700 text-xs text-left cursor-pointer transition-all hover:scale-[1.01] group"
+                >
+                  <p className="font-bold text-white group-hover:text-blue-400 transition-colors">Login as Admin</p>
+                  <p className="text-[10px] text-slate-400 font-mono mt-0.5">wwtbas@gmail.com</p>
+                </button>
+              </div>
+            </div>
 
             {/* Additional details on diagnostic specifications */}
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
               <div className="p-6 bg-[#1E293B] rounded-2xl border border-slate-850 space-y-2">
                 <Award className="w-8 h-8 text-blue-500" />
-                <h4 className="font-bold text-white text-sm font-display">Computer-Based Testing</h4>
+                <h4 className="font-bold text-white text-sm font-display">Interactive Quizzes</h4>
                 <p className="text-slate-400 text-xs leading-relaxed">
-                  Dynamic simulation environment matching state-of-the-art diagnostic boards layout. Realtime submissions recording.
+                  A friendly quiz interface designed to mimic standard imaging exams with real-time feedback.
                 </p>
               </div>
 
               <div className="p-6 bg-[#1E293B] rounded-2xl border border-slate-850 space-y-2">
                 <Layers className="w-8 h-8 text-blue-500" />
-                <h4 className="font-bold text-white text-sm font-display">StudiFocus Integration</h4>
+                <h4 className="font-bold text-white text-sm font-display">Study Tools</h4>
                 <p className="text-slate-400 text-xs leading-relaxed">
-                  Direct connection links to the StudiFocus companion tool representing curated sonographic focus grids.
+                  Direct integration with companion study guides and helpful learning grids.
                 </p>
               </div>
 
               <div className="p-6 bg-[#1E293B] rounded-2xl border border-slate-850 space-y-2">
                 <HelpCircle className="w-8 h-8 text-blue-500" />
-                <h4 className="font-bold text-white text-sm font-display">Rich Explanations</h4>
+                <h4 className="font-bold text-white text-sm font-display">Helpful Explanations</h4>
                 <p className="text-slate-400 text-xs leading-relaxed">
-                  Every quiz question includes detailed diagnostic rationale answers immediately published upon student submission.
+                  Every single question has clear, detailed text and answers to guide you when you finish.
                 </p>
               </div>
             </div>
@@ -384,8 +421,32 @@ export default function App() {
       <footer className="bg-slate-950 border-t border-slate-850 py-8 mt-12 text-[#64748B] text-xs">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row justify-between items-center gap-4">
           <p className="text-center md:text-left">
-            © 2026 Ultrasound Academy. Licensed materials for authorized medical diagnostic platforms.
+            © 2026 Ultrasound Academy. Practice platform for medical ultrasound imaging.
           </p>
+
+          <div className="flex flex-wrap gap-4 items-center justify-center">
+            <a 
+              href="https://www.studirad.org" 
+              target="_blank" 
+              rel="noopener noreferrer" 
+              className="text-blue-400 hover:text-blue-300 font-bold flex items-center gap-1 cursor-pointer"
+            >
+              <span>Partner: StudiRad</span>
+              <ExternalLink className="w-3 h-3" />
+            </a>
+
+            <span className="text-slate-700">|</span>
+
+            <a 
+              href="https://studifocus.vercel.app" 
+              target="_blank" 
+              rel="noopener noreferrer" 
+              className="text-slate-300 hover:text-white font-bold flex items-center gap-1 cursor-pointer"
+            >
+              <span>StudiFocus App</span>
+              <Layers className="w-3 h-3" />
+            </a>
+          </div>
         </div>
       </footer>
 
@@ -396,7 +457,7 @@ export default function App() {
             
             <div className="px-6 py-4 bg-slate-900 text-white flex justify-between items-center border-b border-slate-800">
               <h3 className="font-bold text-base font-display">
-                {authMode === 'login' ? '🔐 Player Sign In' : '✨ Register New Candidate'}
+                {authMode === 'login' ? '🔐 Sign In' : '✨ Sign Up'}
               </h3>
               <button 
                 onClick={() => setAuthModalOpen(false)}
@@ -423,7 +484,7 @@ export default function App() {
                     disabled={authLoading}
                     value={nameForm}
                     onChange={(e) => setNameForm(e.target.value)}
-                    placeholder="e.g. John Doe, RDMS"
+                    placeholder="e.g. John Doe"
                     className="w-full px-3.5 py-2 text-sm rounded-xl bg-[#0F172A] border border-slate-700 text-white outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500/20 disabled:opacity-50"
                   />
                 </div>
@@ -437,13 +498,13 @@ export default function App() {
                   disabled={authLoading}
                   value={emailForm}
                   onChange={(e) => setEmailForm(e.target.value)}
-                  placeholder="e.g. candidate@ua.edu"
+                  placeholder="e.g. name@email.com"
                   className="w-full px-3.5 py-2 text-sm rounded-xl bg-[#0F172A] border border-slate-700 text-white outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500/20 disabled:opacity-50"
                 />
               </div>
 
               <div>
-                <label className="block text-[10px] font-bold text-slate-400 uppercase tracking-wide mb-1">Secret Password</label>
+                <label className="block text-[10px] font-bold text-slate-400 uppercase tracking-wide mb-1">Password</label>
                 <input
                   type="password"
                   required
@@ -457,9 +518,9 @@ export default function App() {
 
               {authMode === 'register' && (
                 <div>
-                  <label className="block text-[10px] font-bold text-slate-400 uppercase tracking-wide mb-1">System Role</label>
+                  <label className="block text-[10px] font-bold text-slate-400 uppercase tracking-wide mb-1">Account Info</label>
                   <div className="p-3 bg-slate-900 border border-slate-850 rounded-xl text-slate-300 text-xs">
-                    🔒 <strong className="text-white">Account Type:</strong> Candidate Student (Admin accounts are strictly pre-provided by default).
+                    🔒 <strong className="text-white">Account Type:</strong> Student Account
                   </div>
                 </div>
               )}
@@ -475,10 +536,10 @@ export default function App() {
                       <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
                       <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z" />
                     </svg>
-                    <span>Processing verification...</span>
+                    <span>Processing...</span>
                   </>
                 ) : (
-                  <span>{authMode === 'login' ? 'Authorize Credential' : 'Register & Log In'}</span>
+                  <span>{authMode === 'login' ? 'Sign In' : 'Sign Up & Log In'}</span>
                 )}
               </button>
 

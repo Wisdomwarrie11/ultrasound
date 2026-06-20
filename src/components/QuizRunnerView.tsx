@@ -98,9 +98,9 @@ export default function QuizRunnerView({ currentUser, testId, onFinished }: Quiz
   const handleSubmit = () => {
     // Check if the student missed any options
     const unselectedCount = questions.length - Object.keys(answers).length;
-    let confirmMsg = 'Are you sure you want to finalize and submit this evaluation?';
+    let confirmMsg = 'Are you sure you want to finish and submit your quiz?';
     if (unselectedCount > 0) {
-      confirmMsg = `You have left ${unselectedCount} questions blank! Do you still want to finalize and submit this evaluation?`;
+      confirmMsg = `You have left ${unselectedCount} questions blank! Do you still want to finish and submit your quiz?`;
     }
 
     if (window.confirm(confirmMsg)) {
@@ -109,7 +109,7 @@ export default function QuizRunnerView({ currentUser, testId, onFinished }: Quiz
   };
 
   const handleAutoSubmit = () => {
-    alert("Time is up! Your score has been automatically compiled and saved.");
+    alert("Time is up! Your answers have been automatically saved.");
     evaluateScoreAndSave();
   };
 
@@ -148,7 +148,7 @@ export default function QuizRunnerView({ currentUser, testId, onFinished }: Quiz
   if (!test) {
     return (
       <div className="text-center py-20 bg-slate-900 border border-slate-800 rounded-3xl">
-        <p className="text-slate-400 font-bold font-mono">Loading evaluation metadata...</p>
+        <p className="text-slate-400 font-bold font-mono">Loading quiz details...</p>
       </div>
     );
   }
@@ -169,7 +169,7 @@ export default function QuizRunnerView({ currentUser, testId, onFinished }: Quiz
           <div className="p-6 sm:p-8 bg-gradient-to-r from-slate-900 via-[#0F172A] to-slate-950 text-white relative border-b border-slate-800">
             <div className="absolute right-0 bottom-0 w-32 h-32 bg-blue-500/10 rounded-full blur-2xl" />
             <span className="px-2.5 py-0.5 rounded-full text-sm font-bold bg-blue-500/15 text-blue-400 border border-blue-500/20 font-mono">
-              {test.topic} Evaluation
+              {test.topic} Quiz
             </span>
             <h1 className="text-xl sm:text-2xl font-black tracking-tight mt-3 text-white font-display">
               {test.title}
@@ -184,7 +184,7 @@ export default function QuizRunnerView({ currentUser, testId, onFinished }: Quiz
               <div className="bg-slate-900/40 p-4 rounded-2xl border border-slate-800 flex items-center gap-3">
                 <Clock className="w-6 h-6 text-blue-500 shrink-0" />
                 <div>
-                  <p className="text-[10px] text-slate-500 font-bold uppercase tracking-wider font-mono">Evaluation Period</p>
+                  <p className="text-[10px] text-slate-500 font-bold uppercase tracking-wider font-mono">Duration</p>
                   <p className="text-sm font-bold text-white font-display">{test.duration} Minutes</p>
                 </div>
               </div>
@@ -192,16 +192,16 @@ export default function QuizRunnerView({ currentUser, testId, onFinished }: Quiz
               <div className="bg-slate-900/40 p-4 rounded-2xl border border-slate-800 flex items-center gap-3">
                 <HelpCircle className="w-6 h-6 text-blue-500 shrink-0" />
                 <div>
-                  <p className="text-[10px] text-slate-505 text-slate-500 font-bold uppercase tracking-wider font-mono">Total Questions</p>
-                  <p className="text-sm font-bold text-white font-display">{questions.length} MCQs</p>
+                  <p className="text-[10px] text-slate-505 text-slate-500 font-bold uppercase tracking-wider font-mono">Questions</p>
+                  <p className="text-sm font-bold text-white font-display">{questions.length} Questions</p>
                 </div>
               </div>
 
               <div className="bg-slate-900/40 p-4 rounded-2xl border border-slate-800 flex items-center gap-3">
                 <Award className="w-6 h-6 text-blue-500 shrink-0" />
                 <div>
-                  <p className="text-[10px] text-slate-500 font-bold uppercase tracking-wider font-mono">Challenge System</p>
-                  <p className="text-sm font-bold text-white font-display">Who Wants to Be a Sononaire</p>
+                  <p className="text-[10px] text-slate-500 font-bold uppercase tracking-wider font-mono">Quiz Mode</p>
+                  <p className="text-sm font-bold text-white font-display">Sononaire Challenge</p>
                 </div>
               </div>
             </div>
@@ -210,11 +210,11 @@ export default function QuizRunnerView({ currentUser, testId, onFinished }: Quiz
             <div className="p-4 bg-amber-950/20 border border-amber-900/30 rounded-2xl text-amber-500 text-xs flex gap-3 leading-relaxed">
               <AlertTriangle className="w-5 h-5 text-amber-500 shrink-0 mt-0.5" />
               <div>
-                <strong className="font-mono">IMPORTANT SUBMISSION NOTES:</strong>
+                <strong className="font-mono">IMPORTANT NOTES:</strong>
                 <ul className="list-disc list-inside mt-1 space-y-1 font-sans">
-                  <li>Keep track of the countdown clock in the top sidebar header. Once triggered, the quiz auto-saves on zero.</li>
-                  <li>Do not close your browser tab or back out unless you intend to forfeit your submission attempt.</li>
-                  <li>Explanations and final correct answer guidelines are presented instantly following submission.</li>
+                  <li>Keep track of the countdown clock in the top bar. Once it hits zero, your quiz answers save automatically.</li>
+                  <li>Do not close your browser tab or leave this page until you finish and submit your answers.</li>
+                  <li>In-depth explanations and correct answers are shown immediately after submitting.</li>
                 </ul>
               </div>
             </div>
@@ -232,7 +232,7 @@ export default function QuizRunnerView({ currentUser, testId, onFinished }: Quiz
                 id="begin-evaluation-btn"
                 className="px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white font-bold rounded-xl text-sm transition-all shadow-md shadow-blue-500/20 flex items-center gap-2 hover:scale-[1.02] cursor-pointer font-display"
               >
-                <span>Begin Evaluation Session</span>
+                <span>Start Quiz Now</span>
                 <ChevronRight className="w-4 h-4" />
               </button>
             </div>
@@ -248,7 +248,7 @@ export default function QuizRunnerView({ currentUser, testId, onFinished }: Quiz
           <div className="bg-[#1E293B] rounded-2xl sm:rounded-3xl border border-slate-700 shadow-xl p-3 sm:p-4 flex flex-col sm:flex-row justify-between items-stretch sm:items-center gap-3 animate-fade-in shadow-blue-500/5">
             <div className="flex items-center gap-2.5 min-w-0">
               <span className="shrink-0 px-2 py-0.5 rounded-full text-[9px] font-mono font-bold bg-slate-900 text-slate-400 border border-slate-800">
-                Evaluating
+                Quiz Mode
               </span>
               <h3 className="font-bold text-white text-xs sm:text-sm truncate font-display">
                 {test.title}
@@ -266,7 +266,7 @@ export default function QuizRunnerView({ currentUser, testId, onFinished }: Quiz
             
             {/* Question indexes sidebar - Rendered 2nd on mobile to prevent forcing students to scroll down */}
             <div className="order-2 lg:order-1 bg-[#1E293B] rounded-2xl sm:rounded-3xl border border-slate-700 shadow-xl p-4 space-y-3">
-              <h5 className="text-[11px] font-bold text-slate-400 uppercase tracking-wider font-mono">Evaluation Index</h5>
+              <h5 className="text-[11px] font-bold text-slate-400 uppercase tracking-wider font-mono">Question Navigation</h5>
               <div className="grid grid-cols-5 sm:grid-cols-6 lg:grid-cols-3 gap-1.5 sm:gap-2">
                 {questions.map((q, idx) => {
                   const isAnswered = answers[q.id] !== undefined;
@@ -295,7 +295,7 @@ export default function QuizRunnerView({ currentUser, testId, onFinished }: Quiz
                   className="w-full py-2.5 bg-emerald-600 hover:bg-emerald-700 text-white font-bold rounded-xl text-xs flex items-center justify-center gap-1.5 transition-colors cursor-pointer shadow-sm"
                 >
                   <Check className="w-4 h-4" />
-                  <span>Submit Evaluation</span>
+                  <span>Submit Quiz</span>
                 </button>
                 <button
                   onClick={() => {
@@ -390,10 +390,10 @@ export default function QuizRunnerView({ currentUser, testId, onFinished }: Quiz
             <Award className="w-16 h-16 text-amber-500 mx-auto animate-pulse mb-3" />
             
             <h1 className="text-2xl sm:text-3xl font-black tracking-tight font-display text-white">
-              Evaluation Completed!
+              Quiz Completed!
             </h1>
             <p className="text-slate-400 text-sm mt-1 font-sans">
-              Outstanding work! Your ultrasound diagnostic capabilities have been logged.
+              Outstanding work! Your answers have been checked and saved.
             </p>
 
             {/* Score showcase circular indicator */}
@@ -417,7 +417,7 @@ export default function QuizRunnerView({ currentUser, testId, onFinished }: Quiz
           {/* Correct Answers & Explanations review (Students cannot access before submission, but can review instantly after submission) */}
           <div className="p-6 sm:p-8 space-y-6">
             <h3 className="text-base font-bold text-white border-b border-slate-800 pb-2 font-display">
-              📝 Diagnostic Answers & Explanations Review
+              📝 Review Answers & Explanations
             </h3>
 
             <div className="space-y-6 divide-y divide-slate-800">
@@ -474,7 +474,7 @@ export default function QuizRunnerView({ currentUser, testId, onFinished }: Quiz
                     </div>
 
                     <div className="p-4 bg-slate-900/40 border border-slate-800 rounded-2xl text-xs space-y-1 mt-2.5 font-sans">
-                      <span className="font-bold text-emerald-400 font-mono">Diagnostic Explanations:</span>
+                      <span className="font-bold text-emerald-400 font-mono">Explanation:</span>
                       <p className="text-slate-400 leading-relaxed font-normal">{q.explanation}</p>
                     </div>
                   </div>
@@ -487,7 +487,7 @@ export default function QuizRunnerView({ currentUser, testId, onFinished }: Quiz
                 onClick={handleClose}
                 className="px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white font-bold rounded-xl text-sm transition-all hover:scale-[1.02] cursor-pointer shadow-md shadow-blue-500/20 font-display"
               >
-                Return to Portal Dashboard
+                Return to Dashboard
               </button>
             </div>
           </div>
