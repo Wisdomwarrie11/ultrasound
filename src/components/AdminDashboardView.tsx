@@ -323,23 +323,47 @@ export default function AdminDashboardView({ currentUser }: AdminDashboardViewPr
                       className={`p-4 hover:bg-slate-900/35 transition-all rounded-xl relative cursor-pointer group mt-1.5 first:mt-0 ${isSelected ? 'bg-blue-600/10 border border-blue-500/20 shadow-lg' : 'border border-slate-800 bg-slate-900/10'}`}
                       onClick={() => setSelectedTestId(test.id)}
                     >
-                      <div className="flex justify-between items-start">
-                        <span className="px-2 py-0.5 bg-slate-950 text-slate-400 text-[9px] uppercase font-bold tracking-wider rounded font-mono border border-slate-850">
+                      <div className="flex justify-between items-center gap-2">
+                        <span className="px-2 py-0.5 bg-slate-950 text-slate-400 text-[9px] uppercase font-bold tracking-wider rounded font-mono border border-slate-850 shrink-0">
                           {test.topic}
                         </span>
                         
-                        <div className="flex items-center gap-2">
+                        <div className="flex items-center gap-1.5">
                           {/* Publish toggle badge */}
                           <button
                             onClick={(e) => {
                               e.stopPropagation();
                               togglePublishStatus(test);
                             }}
-                            className={`px-2 py-0.5 rounded text-[10px] font-bold cursor-pointer transition-colors ${isPublished ? 'bg-emerald-950/40 text-emerald-400 border border-emerald-900/40 hover:bg-emerald-900/20' : 'bg-amber-950/40 text-amber-500 border border-amber-900/30 hover:bg-amber-900/20'}`}
+                            className={`px-2 py-0.5 rounded text-[10px] font-bold cursor-pointer transition-colors shrink-0 ${isPublished ? 'bg-emerald-950/40 text-emerald-400 border border-emerald-900/40 hover:bg-emerald-900/20' : 'bg-amber-950/40 text-amber-500 border border-amber-900/30 hover:bg-amber-900/20'}`}
                             title="Click to toggle status"
                           >
                             {isPublished ? 'Published' : 'Draft'}
                           </button>
+
+                          {/* Tool Actions */}
+                          <div className="flex gap-1.5 opacity-100 sm:opacity-0 sm:group-hover:opacity-100 transition-opacity">
+                            <button
+                              onClick={(e) => {
+                                e.stopPropagation();
+                                handleOpenTestModal(test);
+                              }}
+                              className="p-1 bg-slate-800 text-white border border-slate-700 rounded hover:bg-slate-750 cursor-pointer shadow-sm transition-all focus:ring-1 focus:ring-blue-500"
+                              title="Edit Specification"
+                            >
+                              <Edit2 className="w-3 h-3" />
+                            </button>
+                            <button
+                              onClick={(e) => {
+                                e.stopPropagation();
+                                handleDeleteTest(test.id);
+                              }}
+                              className="p-1 bg-slate-800 text-slate-400 border border-slate-700 rounded hover:bg-rose-950/45 hover:text-rose-400 cursor-pointer shadow-sm transition-all focus:ring-1 focus:ring-rose-500"
+                              title="Delete Spec"
+                            >
+                              <Trash2 className="w-3 h-3" />
+                            </button>
+                          </div>
                         </div>
                       </div>
 
@@ -356,30 +380,6 @@ export default function AdminDashboardView({ currentUser }: AdminDashboardViewPr
                         <span>Questions: {test.questionsCount}</span>
                         <span>•</span>
                         <span>Date: {test.scheduledDate}</span>
-                      </div>
-
-                      {/* Tool Actions */}
-                      <div className="absolute right-3 top-3 flex gap-1.5 opacity-100 sm:opacity-0 sm:group-hover:opacity-100 transition-opacity">
-                        <button
-                          onClick={(e) => {
-                            e.stopPropagation();
-                            handleOpenTestModal(test);
-                          }}
-                          className="p-1.5 bg-slate-800 text-slate-205 text-white border border-slate-700 rounded-lg hover:bg-slate-700 cursor-pointer shadow-sm transition-all focus:ring-1 focus:ring-blue-500"
-                          title="Edit Specification"
-                        >
-                          <Edit2 className="w-3.5 h-3.5" />
-                        </button>
-                        <button
-                          onClick={(e) => {
-                            e.stopPropagation();
-                            handleDeleteTest(test.id);
-                          }}
-                          className="p-1.5 bg-slate-800 text-slate-400 border border-slate-700 rounded-lg hover:bg-rose-950/45 hover:text-rose-400 cursor-pointer shadow-sm transition-all focus:ring-1 focus:ring-rose-500"
-                          title="Delete Spec"
-                        >
-                          <Trash2 className="w-3.5 h-3.5" />
-                        </button>
                       </div>
                     </div>
                   );
