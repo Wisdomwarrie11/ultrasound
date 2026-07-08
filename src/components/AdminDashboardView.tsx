@@ -6,7 +6,8 @@
 import React, { useState, useEffect, FormEvent } from 'react';
 import { 
   Plus, Edit2, Trash2, CheckCircle, ChevronDown, Save, 
-  FileText, Calendar, Users, List, Play, BookOpen, AlertCircle, RefreshCw, Trophy
+  FileText, Calendar, Users, List, Play, BookOpen, AlertCircle, RefreshCw, Trophy,
+  Download
 } from 'lucide-react';
 import { QuizTest, Question, QuizResult, User } from '../types';
 import { FirebaseStore } from '../lib/firebase';
@@ -138,6 +139,70 @@ export default function AdminDashboardView({ currentUser }: AdminDashboardViewPr
     }
   };
 
+  const handleDownloadExcel = () => {
+    if (results.length === 0) return;
+
+    // Headers matching the UI columns
+    const headers = [
+      'Student Name',
+      'Quiz Name',
+      'Score (Correct Answers)',
+      'Total Questions',
+      'Score (%)',
+      'Questions Answered',
+      'Time Taken',
+      'Completion Time'
+    ];
+
+    // Sorted results from latest to oldest
+    const sortedResults = results.slice().sort((a, b) => b.submissionTime.localeCompare(a.submissionTime));
+
+    // Rows
+    const rows = sortedResults.map(r => {
+      const pct = r.totalQuestions > 0 ? Math.round((r.score / r.totalQuestions) * 100) : 0;
+      const minutes = Math.floor(r.timeTaken / 60);
+      const seconds = r.timeTaken % 60;
+      const timeStr = `${minutes}m ${seconds}s`;
+      const dateStr = new Date(r.submissionTime).toLocaleString();
+
+      return [
+        r.studentName,
+        r.testTitle,
+        r.score,
+        r.totalQuestions,
+        `${pct}%`,
+        r.questionsAnswered,
+        timeStr,
+        dateStr
+      ];
+    });
+
+    // Convert to CSV string with Excel compatibility
+    const csvContent = [
+      headers.join(','),
+      ...rows.map(row => 
+        row.map(val => {
+          const stringVal = val === null || val === undefined ? '' : String(val);
+          // Escape quotes and wrap in quotes if contains comma, newline, or quotes
+          if (stringVal.includes(',') || stringVal.includes('"') || stringVal.includes('\n')) {
+            return `"${stringVal.replace(/"/g, '""')}"`;
+          }
+          return stringVal;
+        }).join(',')
+      )
+    ].join('\r\n');
+
+    // Create blob with UTF-8 BOM so Excel opens it with correct encoding
+    const blob = new Blob(['\uFEFF' + csvContent], { type: 'text/csv;charset=utf-8;' });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement('a');
+    link.href = url;
+    link.setAttribute('download', `Student_Quiz_Scores_${new Date().toISOString().split('T')[0]}.csv`);
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  };
+
   // Question handlers
   const handleOpenQuestionModal = (q?: Question) => {
     if (!selectedTestId) return;
@@ -261,7 +326,7 @@ export default function AdminDashboardView({ currentUser }: AdminDashboardViewPr
             Academy Control Center
           </h1>
           <p className="text-slate-400 text-sm mt-1 max-w-xl font-sans">
-            Oversee, compose and authorize computer-based test.
+            Oversee, compose and authorize computer-based scanning evaluations for custom diagnostic groups.
           </p>
         </div>
 
@@ -497,13 +562,26 @@ export default function AdminDashboardView({ currentUser }: AdminDashboardViewPr
               <p className="text-slate-400 text-xs mt-0.5">View scores and times of completed student quizzes.</p>
             </div>
             
-            <button
-              onClick={fetchData}
-              className="p-2 border border-slate-700 rounded-xl hover:bg-slate-800 bg-slate-900/40 transition-colors text-slate-300 flex items-center justify-center cursor-pointer"
-              title="Refresh logs"
-            >
-              <RefreshCw className="w-4 h-4" />
-            </button>
+            <div className="flex items-center gap-2">
+              {results.length > 0 && (
+                <button
+                  onClick={handleDownloadExcel}
+                  className="px-4.5 py-2 bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-bold rounded-xl flex items-center gap-1.5 transition-all shadow-md shadow-emerald-500/20 cursor-pointer hover:scale-[1.02]"
+                  title="Download scores as Excel/CSV"
+                >
+                  <Download className="w-4 h-4" />
+                  <span>Download Excel</span>
+                </button>
+              )}
+              
+              <button
+                onClick={fetchData}
+                className="p-2 border border-slate-700 rounded-xl hover:bg-slate-800 bg-slate-900/40 transition-colors text-slate-300 flex items-center justify-center cursor-pointer"
+                title="Refresh logs"
+              >
+                <RefreshCw className="w-4 h-4" />
+              </button>
+            </div>
           </div>
 
           {results.length === 0 ? (
